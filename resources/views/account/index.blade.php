@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title')Account@endsection
+@section('title') Account @endsection
 
 @section('main_content')
     <h1>Личный кабинет</h1>

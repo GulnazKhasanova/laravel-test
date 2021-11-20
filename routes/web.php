@@ -17,8 +17,10 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/account', AccountController::class);
-    Route::group(['prefix' => '/admin'], function () {
+    Route::get('/account', AccountController::class)->name('account');
+
+
+    Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
         Route::get('/', [MainController::class, 'all']);
     });
 
