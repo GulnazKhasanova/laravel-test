@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class MainController extends Controller{
 
 
-    public function home(){
-        return view('home');
+    public function all(){
+        return view('all');
     }
 
     public function active(){
@@ -18,4 +18,5 @@ class MainController extends Controller{
     public function completed(){
         return view('completed');
     }
+
 }

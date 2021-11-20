@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Account\IndexController as AccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
@@ -15,8 +16,25 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', [MainController::class, 'home']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/account', AccountController::class);
+    Route::group(['prefix' => '/admin'], function () {
+        Route::get('/', [MainController::class, 'all']);
+    });
+
+});
 Route::get('/active', [MainController::class, 'active']);
 Route::get('/completed', [MainController::class, 'completed']);
 
-Route::post('/auth/check', [AuthController::class, 'auth_check'])->name('check');
+Route::get('/auth', [AuthController::class, 'create'])->name('check');
+Route::post('/auth/check',[AuthController::class, 'auth_check']);
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
