@@ -23,9 +23,33 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+                    <div class="container-fluid">
+                        <span class="navbar-brand">Todo App</span>
+                        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="navbar-collapse collapse" id="navbarsExample03" style="">
+                            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                                @if(\Illuminate\Support\Facades\Auth::user()&&\Illuminate\Support\Facades\Auth::user()->is_admin)
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="/admin/all">Tasks</a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="/account">My tasks</a>
+                                    </li>
+                                @endif
+
+                            </ul>
+                            <form>
+                                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

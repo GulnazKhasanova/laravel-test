@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\IndexController as AccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,22 +22,26 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
-        Route::get('/', [MainController::class, 'all']);
+        Route::get('/all', [MainController::class, 'all'])->name('all');
     });
 
 });
-Route::get('/active', [MainController::class, 'active']);
-Route::get('/completed', [MainController::class, 'completed']);
 
-Route::get('/auth', [AuthController::class, 'create'])->name('check');
-Route::post('/auth/check',[AuthController::class, 'auth_check']);
+Route::group(['prefix' => '/task'], function () {
+    Route::post('/', [App\Http\Controllers\TaskController::class, 'store'])->name('create-task');
+});
+
+
+
+
+//Route::get('/active', [MainController::class, 'active']);
+//Route::get('/completed', [MainController::class, 'completed']);
+//
+//Route::get('/auth', [AuthController::class, 'create'])->name('check');
+//Route::post('/auth/check',[AuthController::class, 'auth_check']);
 
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

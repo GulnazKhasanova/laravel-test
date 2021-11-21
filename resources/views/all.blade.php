@@ -1,7 +1,10 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('title') Задачи @endsection
 
-@section('main_content')
-    <h1>Все задачи</h1>
+@section('content')
+    <div class="container">
+        <h1>Все задачи</h1>
+        <p>Привет {{ \Illuminate\Support\Facades\Auth::user()->name }}</p>
+    </div>
 @endsection
