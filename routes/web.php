@@ -28,10 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => '/task'], function () {
-    Route::post('/', [App\Http\Controllers\TaskController::class, 'store'])->name('create-task');
+    Route::post('/', [TaskController::class, 'store'])->name('create-task');
+    Route::post('/{id}', [TaskController::class, 'update'])->name('update-task');
+    Route::post('/destroy/{id}', [TaskController::class, 'destroy'])->name('destroy-task');
+   Route::get('/show', [TaskController::class, 'show'])->name('show-task');
 });
-
-
 
 
 //Route::get('/active', [MainController::class, 'active']);

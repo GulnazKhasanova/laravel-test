@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Account;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Tasks;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -15,6 +18,18 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('account.index');
+
+        if(Auth::user()->is_admin !==true){
+            $el = Tasks::whereHas('user', $filter = function($query) {
+                $query->where('id', Auth::user()->id);})
+                ->with(['user' => $filter])
+                ->get();
+            $tasks = $el;
+        }else {
+            $tasks = Tasks::all();
+        }
+
+
+        return view('account.index',compact('tasks'));
     }
 }

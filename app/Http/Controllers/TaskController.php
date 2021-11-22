@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tasks;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isNull;
 
 class TaskController extends Controller
 {
@@ -14,9 +15,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Tasks::all();
-        dd($tasks);
-        return view('account.index', compact('tasks'));
+      $tasks = Tasks::all();
+      return view('account.index', compact('tasks'));
     }
 
     /**
@@ -45,6 +45,7 @@ class TaskController extends Controller
             'id_user' => 'required'
         ]);
 
+
        Tasks::create($validate);
 
        return redirect()->back();
@@ -56,9 +57,18 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $name = $request->search;
+        $el = Tasks::all()->where('name', $name);
+//       dd($el->count());
+        if($el->count() !== null){
+            foreach ($el as $item){
+                $task = $item;
+            }
+        }else $task = null;
+
+        return view('show',compact('task'));
     }
 
     /**
@@ -81,9 +91,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $id->update($request->all());
+        $task = Tasks::find($id);
 
-        return redirect()->route('account.index');
+        $task->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -94,8 +106,9 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $id->delete();
+        $task = Tasks::find($id);
+        $task->delete();
 
-        return redirect()->route('account.index');
+        return redirect()->back();
     }
 }
