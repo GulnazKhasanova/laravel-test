@@ -9,12 +9,24 @@
 
         <table class="table">
              <thead>
-             <tr>
-                 <th scope="col">Name</th>
-                 <th scope="col">Task</th>
-                 <th scope="col">Status</th>
-                 <th scope="col"></th>
-             </tr>
+             <form action="{{ route('filter') }}" method="get">
+                 @csrf
+                 <tr>
+                     <th scope="col">Name</th>
+                     <th scope="col"><select class="form-select form-select-sm"
+                                             aria-label=".form-select-sm example"
+                                             name="task"
+                                             onchange="this.form.submit()">
+                                        <option selected>Task</option>
+                                        @foreach($alltasks as $el)
+                                            <option>{{$el->name}}</option>
+                                        @endforeach
+                                    </select>
+                     </th>
+                     <th scope="col">Status</th>
+                     <th scope="col"></th>
+                 </tr>
+             </form>
              </thead>
 
                 @if($tasks->count() === 0)

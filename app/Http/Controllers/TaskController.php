@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\TasksTrait;
 use App\Models\Tasks;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isNull;
 
 class TaskController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-      $tasks = Tasks::all();
-      return view('account.index', compact('tasks'));
+//      $tasks = Tasks::all();
+//      return view('account.index', compact('tasks'));
     }
 
     /**
@@ -61,14 +63,8 @@ class TaskController extends Controller
     {
         $name = $request->search;
         $el = Tasks::all()->where('name', $name);
-//       dd($el->count());
-        if($el->count() !== null){
-            foreach ($el as $item){
-                $task = $item;
-            }
-        }else $task = null;
 
-        return view('show',compact('task'));
+        return view('show',compact('el'));
     }
 
     /**

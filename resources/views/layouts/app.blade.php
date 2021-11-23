@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm col-sm-12">
             <div class="container">
                 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
                     <div class="container-fluid">

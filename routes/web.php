@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\Account\FilterController as FilterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
@@ -18,11 +19,12 @@ use App\Http\Controllers\TaskController;
 */
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/account', AccountController::class)->name('account');
+    Route::get('/account', [AccountController::class,'filter'])->name('account');
+    Route::get('/filter', [AccountController::class,'filter'])->name('filter');
 
 
     Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
-        Route::get('/all', [MainController::class, 'all'])->name('all');
+        Route::get('/all', [AccountController::class,'filter'])->name('all');
     });
 
 });

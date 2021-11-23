@@ -14,9 +14,10 @@
             </tr>
             </thead>
 
-            @if($task === null)
+            @if($el === null)
                 <p>Задача не найдена</p>
             @else
+                @foreach($el as $task)
                 <tr>
                     <th scope="row">{{ $task->user->name }}</th>
                     <td>{{ $task->name }}</td>
@@ -39,6 +40,7 @@
                         </td>
                     @endif
                 </tr>
+                @endforeach
         @endif
 
     </table>
